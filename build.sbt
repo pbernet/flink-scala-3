@@ -21,6 +21,8 @@ libraryDependencies += "org.apache.flink" % "flink-connector-kafka" % flinkVersi
 
 libraryDependencies += "org.apache.flink" % "flink-json" % flinkVersion
 // Works with Scala 3
+// TODO Consider migrating to grapple
+// https://github.com/losizm/grapple
 libraryDependencies += "com.github.losizm" %% "little-json" % "9.0.0"
 
 // For FraudDetectionJob Example

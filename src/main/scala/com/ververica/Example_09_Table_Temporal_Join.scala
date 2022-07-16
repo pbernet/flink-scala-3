@@ -17,9 +17,12 @@ import org.apache.flink.types.Row
 
 import java.time.ZoneId
 
-/** Perform the materialized view maintenance smarter by using time-versioned
-  * joins.
-  */
+/**
+ * Perform the materialized view maintenance smarter (than example8)
+ * by using time-versioned joins
+ * TODO Runtime ex: Incorrect syntax near the keyword 'ROW_NUMBER' at line 5, column 6
+ *
+ */
 @main def example9 =
   val env = StreamExecutionEnvironment.getExecutionEnvironment
   env.setParallelism(1) // due to little data
@@ -27,10 +30,10 @@ import java.time.ZoneId
   val tableEnv = StreamTableEnvironment.create(env)
   val config = tableEnv.getConfig
   config.setLocalTimeZone(ZoneId.of("UTC"))
-  // read transactions
+
   val transactionSource = KafkaSource
     .builder[Transaction]
-    .setBootstrapServers("localhost:9092")
+    .setBootstrapServers( "localhost:29092")
     .setTopics("transactions")
     .setStartingOffsets(OffsetsInitializer.earliest)
     .setValueOnlyDeserializer(new TransactionDeserializer)

@@ -13,14 +13,17 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment
 import org.apache.flink.table.connector.ChangelogMode
 import org.apache.flink.types.Row
 
-/** Maintain a materialized view. */
+/**
+ * Maintain a materialized view
+ *
+ */
 @main def example8 =
   val env = StreamExecutionEnvironment.getExecutionEnvironment
   val tableEnv = StreamTableEnvironment.create(env)
-  // read transactions
+
   val transactionSource = KafkaSource
     .builder[Transaction]
-    .setBootstrapServers("localhost:9092")
+    .setBootstrapServers( "localhost:29092")
     .setTopics("transactions")
     .setStartingOffsets(OffsetsInitializer.earliest)
     .setValueOnlyDeserializer(new TransactionDeserializer)

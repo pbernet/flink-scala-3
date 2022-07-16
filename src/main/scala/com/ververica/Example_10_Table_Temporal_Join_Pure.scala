@@ -13,7 +13,11 @@ import org.apache.flink.table.api.{
 
 import java.time.ZoneId
 
-/** Table API end-to-end example with time-versioned joins. */
+/**
+ * Table API end-to-end example with time-versioned joins
+ * TODO Runtime ex: Incorrect syntax near the keyword 'ROW_NUMBER' at line 5, column 6
+ *
+ */
 @main def example10 =
   val tableEnv = TableEnvironment.create(EnvironmentSettings.inStreamingMode)
   val config = tableEnv.getConfig
@@ -43,7 +47,7 @@ import java.time.ZoneId
       .option("key.format", "json")
       .option("value.format", "json")
       .option("topic", "customers")
-      .option("properties.bootstrap.servers", "localhost:9092")
+      .option("properties.bootstrap.servers",  "localhost:29092")
       .build()
   )
 
@@ -65,7 +69,7 @@ import java.time.ZoneId
       .option("json.timestamp-format.standard", "ISO-8601")
       .option("topic", "transactions")
       .option("scan.startup.mode", "earliest-offset")
-      .option("properties.bootstrap.servers", "localhost:9092")
+      .option("properties.bootstrap.servers",  "localhost:29092")
       .build()
   )
 

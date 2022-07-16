@@ -13,10 +13,10 @@ class Transaction(
     var t_time: Instant,
     var t_id: Long,
     var t_customer_id: Long,
-    var t_amount: BigDecimal
+    var t_amount: Long
 ):
   def this() =
-    this(null, 0L, 0L, null)
+    this(null, 0L, 0L, 0L)
 
   override def toString: String =
     s"Transaction($t_time, $t_id, $t_customer_id, $t_amount)"
@@ -24,6 +24,7 @@ class Transaction(
 given jsonToInstant: JsonInput[Instant] with
   def apply(json: JsonValue) = Instant.parse(json.as[String])
 
+// TODO amount does not work with BigDecimal
 given jsonToBigDecimal: JsonInput[BigDecimal] with
   def apply(json: JsonValue) = new BigDecimal(json.as[String])
 

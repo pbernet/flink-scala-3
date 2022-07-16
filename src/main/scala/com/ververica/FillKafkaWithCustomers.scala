@@ -11,8 +11,10 @@ import org.apache.flink.types.RowKind
 import java.time.Instant
 import java.time.LocalDate
 
-/** Utility for writing exmple customer data into a Kafka topic
-  */
+/**
+ * Utility to write example customer data into a Kafka topic "customers"
+ *
+ */
 @main def fillKafkaWithCustomers =
   val env = StreamExecutionEnvironment.getExecutionEnvironment
   val tableEnv = StreamTableEnvironment.create(env)
@@ -89,6 +91,6 @@ import java.time.LocalDate
         .option("key.format", "json")
         .option("value.format", "json")
         .option("topic", "customers")
-        .option("properties.bootstrap.servers", "localhost:9092")
+        .option("properties.bootstrap.servers",  "localhost:29092")
         .build()
     )

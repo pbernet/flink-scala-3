@@ -10,8 +10,9 @@ import org.apache.flink.table.expressions.TimePointUnit
 
 import java.time.LocalDate
 
-/** Use built-in functions to perform streaming ETL i.e. convert records into
-  * JSON.
+/** Use built-in functions to perform streaming ETL
+  * i.e. convert records into JSON
+  * 
   */
 @main def example4 =
   val env = TableEnvironment.create(EnvironmentSettings.inStreamingMode)

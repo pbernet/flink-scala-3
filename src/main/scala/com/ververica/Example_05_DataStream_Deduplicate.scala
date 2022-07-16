@@ -11,17 +11,25 @@ import org.apache.flink.streaming.api.datastream.DataStream
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction
 import org.apache.flink.util.Collector
+import org.slf4j.{Logger, LoggerFactory}
 
 import java.time.Duration
 
-/** Use Flink's state to perform efficient record deduplication. */
+/**
+ * Use Flink's state and time to perform record deduplication
+ * Prerequisites:
+ *  - Start Kafka on Docker
+ *  - Generate data [[FillKafkaWithTransactions]]
+ *
+ **/
 @main def example5 =
+  val logger: Logger = LoggerFactory.getLogger(this.getClass)
   val env = StreamExecutionEnvironment.getExecutionEnvironment
+  env.setParallelism(1)
 
-  // set up a Kafka source
   val transactionSource = KafkaSource
     .builder[Transaction]
-    .setBootstrapServers("localhost:9092")
+    .setBootstrapServers( "localhost:29092")
     .setTopics("transactions")
     .setStartingOffsets(OffsetsInitializer.earliest)
     .setValueOnlyDeserializer(new TransactionDeserializer)
@@ -34,11 +42,16 @@ import java.time.Duration
   )
 
   transactionStream
+    // Select the attribute to dedupe
     .keyBy((t: Transaction) => t.t_id)
     .process(new DataStreamDeduplicate)
     .executeAndCollect
-    .forEachRemaining(println)
+    .forEachRemaining(each => logger.info("After deduplication: {}", each))
 
+/**
+ * Business logic for deduplication
+ *
+ */
 class DataStreamDeduplicate
     extends KeyedProcessFunction[Long, Transaction, Transaction]:
   // use Flink's managed keyed state
@@ -57,10 +70,10 @@ class DataStreamDeduplicate
   ): Unit =
     if (seen.value == null) {
       seen.update(transaction)
-      // use timers to clean up state
+      // use timers to clean up state: This sets the "window to the past"
       context.timerService.registerProcessingTimeTimer(
         context.timerService.currentProcessingTime + Duration
-          .ofHours(1)
+          .ofMinutes(1) // we'll keep each item for this time
           .toMillis
       )
       out.collect(transaction)

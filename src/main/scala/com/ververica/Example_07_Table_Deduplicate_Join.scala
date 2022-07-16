@@ -9,7 +9,10 @@ import org.apache.flink.streaming.api.datastream.DataStream
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment
 
-/** Use DataStream API connectors but deduplicate and join in SQL. */
+/**
+ * Use DataStream API connectors but deduplicate and join in SQL
+ *
+ */
 @main def example7 =
   val env = StreamExecutionEnvironment.getExecutionEnvironment
   // switch to batch mode on demand
@@ -19,10 +22,9 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment
   val customerStream = env.fromElements(ExampleData.customers: _*)
   tableEnv.createTemporaryView("Customers", customerStream)
 
-  // read transactions
   val transactionSource = KafkaSource
     .builder[Transaction]
-    .setBootstrapServers("localhost:9092")
+    .setBootstrapServers( "localhost:29092")
     .setTopics("transactions")
     .setStartingOffsets(OffsetsInitializer.earliest)
     .setValueOnlyDeserializer(new TransactionDeserializer)
@@ -43,4 +45,4 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment
       |FROM Customers
       |JOIN (SELECT DISTINCT * FROM Transactions) ON c_id = t_customer_id
       |""".stripMargin
-  )
+  ).print()
