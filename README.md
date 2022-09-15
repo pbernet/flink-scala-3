@@ -1,6 +1,6 @@
 # Flink API Examples for DataStream API and Table API in Scala 3
 
-Flink is now Scala Free. In the upcoming 1.15 release, Flink will not expose any specific Scala version.
+Flink is now Scala Free. In 1.15.x release, Flink will not expose any specific Scala version.
 Users can now choose whatever Scala version they need in their user code, including Scala 3.
 
 This repository is a reimplementation of Timo Walther's [Flink API Examples for DataStream API and Table API](https://github.com/twalthr/flink-api-examples)

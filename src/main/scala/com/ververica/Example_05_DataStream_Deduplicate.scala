@@ -17,9 +17,15 @@ import java.time.Duration
 
 /**
  * Use Flink's state and time to perform record deduplication
+ *
  * Prerequisites:
- *  - Start Kafka on Docker
- *  - Generate data [[FillKafkaWithTransactions]]
+ *  - Start Kafka
+ *
+ * How to run:
+ *  - Run this example
+ *  - Periodically generate new data with: [[FillKafkaWithTransactions]]
+ *    The time window is currently set to 1 minute
+ *  - Observe the filtered transactions in the log
  *
  **/
 @main def example5 =
