@@ -27,3 +27,5 @@ import java.time.{LocalDate, Period}
     )
     .executeAndCollect()
     .forEachRemaining(println);
+
+  Thread.sleep(5000)

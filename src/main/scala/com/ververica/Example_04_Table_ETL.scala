@@ -1,14 +1,11 @@
 package com.ververica
 
-import org.apache.flink.table.api.{
-  EnvironmentSettings,
-  JsonOnNull,
-  TableEnvironment
-}
+import org.apache.flink.table.api.{EnvironmentSettings, JsonOnNull, TableEnvironment}
 import org.apache.flink.table.api.Expressions.*
 import org.apache.flink.table.expressions.TimePointUnit
 
 import java.time.LocalDate
+import java.util.concurrent.TimeUnit
 
 /** Use built-in functions to perform streaming ETL
   * i.e. convert records into JSON

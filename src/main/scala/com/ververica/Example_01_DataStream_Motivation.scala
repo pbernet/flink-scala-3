@@ -11,3 +11,5 @@ import com.ververica.data.ExampleData
     .fromElements(ExampleData.customers: _*)
     .executeAndCollect
     .forEachRemaining(println)
+
+  Thread.sleep(5000)

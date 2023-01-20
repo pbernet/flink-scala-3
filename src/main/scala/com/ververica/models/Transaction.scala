@@ -24,7 +24,6 @@ class Transaction(
 given jsonToInstant: JsonInput[Instant] with
   def apply(json: JsonValue) = Instant.parse(json.as[String])
 
-// TODO amount does not work with BigDecimal
 given jsonToBigDecimal: JsonInput[BigDecimal] with
   def apply(json: JsonValue) = new BigDecimal(json.as[String])
 

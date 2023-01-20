@@ -15,7 +15,13 @@ import java.time.ZoneId
 
 /**
  * Table API end-to-end example with time-versioned joins
- * TODO Runtime ex: Incorrect syntax near the keyword 'ROW_NUMBER' at line 5, column 6
+ * 
+ * Prerequisites:
+ *  - Kafka/Zookeeper started: docker-compose up -d
+ *
+ * How to run:
+ *  - Run this example
+ *  - Generate new transactions/customers with: [[FillKafkaWithTransactions]]/[[FillKafkaWithCustomers]]
  *
  */
 @main def example10 =
@@ -75,10 +81,10 @@ import java.time.ZoneId
 
   val deduplicateTransactions = tableEnv.sqlQuery(
     """
-      |SELECT t_id, t_rowtime, t_customer_id, t_amount
+      |SELECT t_id, t_time, t_customer_id, t_amount
       |FROM (
-      |   SELECT *
-      |     ROW_NUMBER() OVER (PARTITION BY t_id ORDER BY t_rowtime) AS row_num
+      |   SELECT *,
+      |    ROW_NUMBER() OVER (PARTITION BY t_id ORDER BY t_time) AS row_num
       |   FROM Transactions)
       |WHERE row_num = 1
       |""".stripMargin
@@ -90,9 +96,9 @@ import java.time.ZoneId
   )
   tableEnv
     .executeSql("""
-                  |SELECT t_rowtime, c_rowtime, t_id, c_name, t_amount
+                  |SELECT t_time, c_rowtime, t_id, c_name, t_amount
                   |FROM DeduplicateTransactions
-                  |LEFT JOIN Customers FOR SYSTEM_TIME AS OF t_rowtime
+                  |LEFT JOIN Customers FOR SYSTEM_TIME AS OF t_time
                   |   ON c_id = t_customer_id
                   |""".stripMargin)
     .print()

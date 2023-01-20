@@ -2,8 +2,7 @@ package com.ververica
 
 import com.ververica.models.{Transaction, TransactionDeserializer}
 import org.apache.flink.api.common.eventtime.WatermarkStrategy
-import org.apache.flink.api.common.state.ValueState
-import org.apache.flink.api.common.state.ValueStateDescriptor
+import org.apache.flink.api.common.state.{ValueState, ValueStateDescriptor}
 import org.apache.flink.configuration.Configuration
 import org.apache.flink.connector.kafka.source.KafkaSource
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer
@@ -19,15 +18,16 @@ import java.time.Duration
  * Use Flink's state and time to perform record deduplication
  *
  * Prerequisites:
- *  - Start Kafka
+ *  - Kafka/Zookeeper started: docker-compose up -d
  *
  * How to run:
  *  - Run this example
- *  - Periodically generate new data with: [[FillKafkaWithTransactions]]
- *    The time window is currently set to 1 minute
- *  - Observe the filtered transactions in the log
+ *  - Periodically generate new transactions/ with: [[FillKafkaWithTransactions]]
+ *  - The retentionTime is set to 1 minute, so re-generated transactions during this time do not show in the log
  *
- **/
+ * Similar to: [[FraudDetectionJob]]
+ *
+ * */
 @main def example5 =
   val logger: Logger = LoggerFactory.getLogger(this.getClass)
   val env = StreamExecutionEnvironment.getExecutionEnvironment
@@ -50,6 +50,7 @@ import java.time.Duration
   transactionStream
     // Select the attribute to dedupe
     .keyBy((t: Transaction) => t.t_id)
+    // Add an operator that applies a function to each partitioned element in the stream
     .process(new DataStreamDeduplicate)
     .executeAndCollect
     .forEachRemaining(each => logger.info("After deduplication: {}", each))
@@ -63,6 +64,8 @@ class DataStreamDeduplicate
   // use Flink's managed keyed state
   var seen: ValueState[Transaction] = _
 
+  val retentionTimeMinutes = 1
+
   override def open(parameters: Configuration): Unit =
     seen = getRuntimeContext.getState(
       new ValueStateDescriptor("seen", classOf[Transaction])
@@ -70,17 +73,17 @@ class DataStreamDeduplicate
 
   @throws[Exception]
   override def processElement(
-      transaction: Transaction,
-      context: KeyedProcessFunction[Long, Transaction, Transaction]#Context,
+                               transaction: Transaction,
+                               context: KeyedProcessFunction[Long, Transaction, Transaction]#Context,
       out: Collector[Transaction]
   ): Unit =
     if (seen.value == null) {
       seen.update(transaction)
       // use timers to clean up state: This sets the "window to the past"
       context.timerService.registerProcessingTimeTimer(
-        context.timerService.currentProcessingTime + Duration
-          .ofMinutes(1) // we'll keep each item for this time
-          .toMillis
+        context.timerService.currentProcessingTime +
+          // we'll keep each item for this time
+          Duration.ofMinutes(retentionTimeMinutes).toMillis
       )
       out.collect(transaction)
     }

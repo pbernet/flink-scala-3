@@ -20,7 +20,6 @@ import java.time.ZoneId
 /**
  * Perform the materialized view maintenance smarter (than example8)
  * by using time-versioned joins
- * TODO Runtime ex: Incorrect syntax near the keyword 'ROW_NUMBER' at line 5, column 6
  *
  */
 @main def example9 =
@@ -57,7 +56,7 @@ import java.time.ZoneId
     """
         |SELECT t_id, t_rowtime, t_customer_id, t_amount
         |FROM (
-        |   SELECT *
+        |   SELECT *,
         |     ROW_NUMBER() OVER (PARTITION BY t_id ORDER BY t_rowtime) AS row_num
         |   FROM Transactions)
         |WHERE row_num = 1
