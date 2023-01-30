@@ -6,7 +6,7 @@ import java.time.LocalDate
 import org.apache.flink.table.api.Expressions.row
 
 /** Basic example of generating data and printing it. */
-@main def example2 =
+@main def example2() =
   val env = TableEnvironment.create(EnvironmentSettings.inStreamingMode())
 
   env

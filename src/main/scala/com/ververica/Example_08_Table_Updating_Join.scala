@@ -17,7 +17,7 @@ import org.apache.flink.types.Row
  * Maintain a materialized view
  *
  */
-@main def example8 =
+@main def example8() =
   val env = StreamExecutionEnvironment.getExecutionEnvironment
   val tableEnv = StreamTableEnvironment.create(env)
 

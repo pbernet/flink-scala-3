@@ -13,7 +13,7 @@ class Customer(var c_id: Long, var c_name: String, var c_birthday: LocalDate):
   def this() =
     this(0L, "", null)
 
-  override def toString: String = s"Customer($c_id, $c_name, $c_birthday)"
+  override def toString: String = s"Customer(id:$c_id, name:$c_name, birthday:$c_birthday)"
 
 given jsonToLocalDate: JsonInput[LocalDate] with
   def apply(json: JsonValue) = LocalDate.parse(json.as[String])

@@ -8,7 +8,7 @@ import java.time.{LocalDate, Period}
 /** Use arbitrary libraries to perform streaming ETL i.e. convert records into
   * JSON.
   */
-@main def example3 =
+@main def example3() =
   val env = StreamExecutionEnvironment.getExecutionEnvironment
 
   env

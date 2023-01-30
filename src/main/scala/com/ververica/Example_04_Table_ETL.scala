@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
   * i.e. convert records into JSON
   * 
   */
-@main def example4 =
+@main def example4() =
   val env = TableEnvironment.create(EnvironmentSettings.inStreamingMode)
   env
     .fromValues(

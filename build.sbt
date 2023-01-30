@@ -26,6 +26,12 @@ libraryDependencies += "org.apache.flink" % "flink-json" % flinkVersion
 libraryDependencies += "com.github.losizm" %% "little-json" % "9.0.0"
 
 // For FraudDetectionJob Example
-// https://nightlies.apache.org/flink/flink-docs-release-1.15/docs/try-flink/datastream/#fraud-detection-with-the-datastream-api
+// https://nightlies.apache.org/flink/flink-docs-release-1.16/docs/try-flink/datastream/
 libraryDependencies += "org.apache.flink" % "flink-walkthrough-common" % flinkVersion
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.4.1"
+libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.4.5"
+
+
+scalacOptions += "-deprecation"
+scalacOptions += "-feature"
+
+run / fork := true

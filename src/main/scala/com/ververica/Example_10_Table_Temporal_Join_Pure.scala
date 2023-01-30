@@ -24,7 +24,7 @@ import java.time.ZoneId
  *  - Generate new transactions/customers with: [[FillKafkaWithTransactions]]/[[FillKafkaWithCustomers]]
  *
  */
-@main def example10 =
+@main def example10() =
   val tableEnv = TableEnvironment.create(EnvironmentSettings.inStreamingMode)
   val config = tableEnv.getConfig
   config.getConfiguration.set(

@@ -13,7 +13,7 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment
  * Use DataStream API connectors but deduplicate and join in SQL
  *
  */
-@main def example7 =
+@main def example7() =
   val env = StreamExecutionEnvironment.getExecutionEnvironment
   // switch to batch mode on demand
   // env.setRuntimeMode(RuntimeExecutionMode.BATCH)

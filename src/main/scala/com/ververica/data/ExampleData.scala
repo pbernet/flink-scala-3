@@ -8,37 +8,38 @@ import org.apache.flink.types.RowKind
 object ExampleData:
   val transaction = Array(
     new Transaction(
-      Instant.parse("2021-10-08T12:33:12.000Z"),
+      Instant.parse("2021-10-08T12:33:12.001Z"),
       1L,
       12L,
       325L
     ),
     new Transaction(
-      Instant.parse("2021-10-10T08:00:00.000Z"),
+      Instant.parse("2021-10-10T08:00:00.001Z"),
       2L,
       7L,
       13L
     ),
+    // When keyed on t_id, this is always filtered as duplicate
     new Transaction(
-      Instant.parse("2021-10-10T08:00:00.000Z"),
+      Instant.parse("2021-10-10T08:00:00.111Z"),
       2L,
       7L,
-      13L
+      300L
     ),
     new Transaction(
-      Instant.parse("2021-10-14T17:04:00.000Z"),
+      Instant.parse("2021-10-14T17:04:00.001Z"),
       3L,
       12L,
       52L
     ),
     new Transaction(
-      Instant.parse("2021-10-14T17:06:00.000Z"),
+      Instant.parse("2021-10-14T17:06:00.001Z"),
       4L,
       32L,
       26L
     ),
     new Transaction(
-      Instant.parse("2021-10-14T18:23:00.000Z"),
+      Instant.parse("2021-10-14T18:23:00.001Z"),
       5L,
       32L,
       22L

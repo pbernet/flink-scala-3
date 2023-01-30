@@ -19,7 +19,7 @@ class Transaction(
     this(null, 0L, 0L, 0L)
 
   override def toString: String =
-    s"Transaction($t_time, $t_id, $t_customer_id, $t_amount)"
+    s"Transaction(time:$t_time, id:$t_id, customer_id:$t_customer_id, amount:$t_amount)"
 
 given jsonToInstant: JsonInput[Instant] with
   def apply(json: JsonValue) = Instant.parse(json.as[String])

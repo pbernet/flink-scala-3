@@ -22,7 +22,7 @@ import java.time.ZoneId
  * by using time-versioned joins
  *
  */
-@main def example9 =
+@main def example9() =
   val env = StreamExecutionEnvironment.getExecutionEnvironment
   env.setParallelism(1) // due to little data
 
