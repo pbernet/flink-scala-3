@@ -8,6 +8,6 @@ public class LogMapFunction<A> implements MapFunction<A, A> {
   
   @Override
   public A map(A value) {
-    LOG.info("Value: {}", value);
+    LOG.info("Element value: {}", value);
     return value; }
 }

@@ -4,9 +4,11 @@ version := "0.1"
 
 scalaVersion := "3.2.1"
 
-val flinkVersion = "1.16.0"
+val flinkVersion = "1.16.1"
+//val flinkVersion = "1.17-SNAPSHOT"
 
 resolvers += Resolver.mavenLocal
+resolvers += "apache.snapshots" at "https://repository.apache.org/content/repositories/snapshots"
 
 javacOptions ++= Seq("-source", "11", "-target", "11")
 
@@ -18,6 +20,7 @@ libraryDependencies += "org.apache.flink" % "flink-table-api-java" % flinkVersio
 libraryDependencies += "org.apache.flink" % "flink-table-api-java-bridge" % flinkVersion
 libraryDependencies += "org.apache.flink" % "flink-table-runtime" % flinkVersion
 libraryDependencies += "org.apache.flink" % "flink-connector-kafka" % flinkVersion
+libraryDependencies += "org.apache.flink" % "flink-runtime-web" % flinkVersion
 
 libraryDependencies += "org.apache.flink" % "flink-json" % flinkVersion
 // Choosen because it works with Scala 3
