@@ -8,6 +8,7 @@ import org.apache.flink.connector.kafka.source.KafkaSource
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer
 import org.apache.flink.streaming.api.datastream.DataStream
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
+import org.apache.flink.streaming.api.functions.sink.PrintSink
 import org.apache.flink.table.api.Schema
 import org.apache.flink.table.api.Table
 import org.apache.flink.table.api.TableConfig
@@ -19,7 +20,8 @@ import java.time.ZoneId
 
 /**
  * Perform the materialized view maintenance smarter (than example8)
- * by using time-versioned joins
+ * by using "time-versioned joins", so Customers data is shown at the
+ * the time of the Transaction.
  *
  */
 @main def example9() =
@@ -52,6 +54,8 @@ import java.time.ZoneId
       .build
   )
 
+  // Use ROW_NUMBER to deduplicate on dedicated fields,eg t_id
+  // Doc: https://www.navicat.com/en/company/aboutus/blog/1647-applying-select-distinct-to-one-column-only
   val deduplicateTransactions = tableEnv.sqlQuery(
     """
         |SELECT t_id, t_rowtime, t_customer_id, t_amount

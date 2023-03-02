@@ -18,8 +18,8 @@ import scala.jdk.CollectionConverters.*
 import scala.sys.process.{Process, *}
 
 /**
- * Tumbling Window example based on code taken from "Rock the JVM Flink course",
- * BUT no Scala API is used, since it is deprecated
+ * Tumbling Session Window example based on code taken from "Rock the JVM Flink course".
+ * No Scala API is used here, since it is deprecated
  *
  * Doc:
  * https://nightlies.apache.org/flink/flink-docs-master/docs/dev/datastream/operators/windows
@@ -104,7 +104,7 @@ class BoundedOutOfOrdernessGenerator(maxDelay: Long) extends WatermarkGenerator[
 }
 
 
-def openWebUI(url: String) = {
+def openWebUI(url: String): Unit = {
   val os = System.getProperty("os.name").toLowerCase
 
   val newThread = new Thread(() => {

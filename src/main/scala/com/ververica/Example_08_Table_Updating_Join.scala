@@ -62,7 +62,7 @@ import org.apache.flink.types.Row
       """
         |SELECT c_name, CAST(t_amount AS DECIMAL(5, 2))
         |FROM Customers
-        |JOIN (SELECT DISTINCT * FROM Transactions) ON c_id = t_customer_id
+        |LEFT JOIN (SELECT DISTINCT * FROM Transactions) ON c_id = t_customer_id
         |""".stripMargin
     )
     .print()

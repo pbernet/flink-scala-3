@@ -1,6 +1,7 @@
 package com.ververica
 
 import com.ververica.data.ExampleData
+import org.apache.flink.api.common.typeinfo.Types
 import org.apache.flink.streaming.api.datastream.DataStream
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
 import org.apache.flink.table.api.{DataTypes, Schema, TableDescriptor}
@@ -18,7 +19,7 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment
     .fromDataStream(transactionStream)
     .executeInsert(
       TableDescriptor
-        .forConnector("kafka")
+        .forConnector("upsert-kafka")
         .schema(
           Schema
             .newBuilder()
@@ -26,13 +27,15 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment
             .column("t_id", DataTypes.BIGINT().notNull())
             .column("t_customer_id", DataTypes.BIGINT().notNull())
             .column("t_amount", DataTypes.BIGINT())
+            .primaryKey("t_id")
             .watermark("t_time", "t_time - INTERVAL '10' SECONDS")
             .build()
         )
-        .format("json")
-        .option("json.timestamp-format.standard", "ISO-8601")
+
+        .option("key.format", "json")
+        .option("value.format", "json")
+        .option("value.json.timestamp-format.standard", "ISO-8601")
         .option("topic", "transactions")
-        .option("scan.startup.mode", "earliest-offset")
         .option("properties.bootstrap.servers",  "localhost:29092")
         .build()
     )

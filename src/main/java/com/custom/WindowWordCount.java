@@ -12,7 +12,7 @@ import org.apache.flink.streaming.api.windowing.assigners.TumblingProcessingTime
 
 /**
  * Windowing with processing time.
- * This is similar to akka-streams groupedWithin operator
+ * Similar to akka-streams `groupedWithin` operator
  *
  * How to use:
  *  - Start the input tcp stream from a terminal eg: nc -lk 1000

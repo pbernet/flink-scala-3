@@ -7,10 +7,14 @@ import org.apache.flink.connector.kafka.source.KafkaSource
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer
 import org.apache.flink.streaming.api.datastream.DataStream
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
+import org.apache.flink.table.api.Table
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment
 
 /**
- * Use DataStream API connectors but deduplicate and join in SQL
+ * Use DataStream API connectors but deduplicate and join in Flink SQL
+ * 
+ * Similar to `TableDeduplicatedJoin`:
+ * https://docs.immerok.cloud/docs/how-to-guides/development/joining-and-deduplicating-data
  *
  */
 @main def example7() =
@@ -39,6 +43,8 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment
   tableEnv.createTemporaryView("Transactions", transactionStream)
 
   // use Flink SQL to do the heavy lifting
+  // Note that DISTINCT is applied on all fields of a row
+  // See example9 for a way to deduplicate on dedicated fields
   tableEnv.executeSql(
     """
       |SELECT c_name, CAST(t_amount AS DECIMAL(5, 2))

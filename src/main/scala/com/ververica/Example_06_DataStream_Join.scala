@@ -17,8 +17,6 @@ import org.slf4j.{Logger, LoggerFactory}
 
 import java.time.Duration
 import scala.jdk.CollectionConverters.*
-import util.{LogMapFunction, MyCoMapFunction}
-
 import scala.sys.process.*
 
 /**
