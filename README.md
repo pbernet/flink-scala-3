@@ -7,11 +7,11 @@ Note that the [Scala API](https://nightlies.apache.org/flink/flink-docs-master/d
 * https://github.com/findify/flink-scala-api
 * https://github.com/ariskk/flink4s
 
-This repository is a fork of [Flink Scala 3](https://github.com/sjwiesman/flink-scala-3), which is originally based on Timo
-Walther's [Flink API Examples for DataStream API and Table API](https://github.com/twalthr/flink-api-examples)
-examples in Scala 3. You can watch his talk [Flink's Table & DataStream API: A Perfect Symbiosis](https://youtu.be/vLLn5PxF2Lw) on YouTube which walks
+This repository is a fork of [Flink Scala 3 examples](https://github.com/sjwiesman/flink-scala-3), which is originally based on Timo
+Walther's [Flink API Examples for DataStream API and Table API](https://github.com/twalthr/flink-api-examples). You can watch his talk [Flink's Table & DataStream API: A Perfect Symbiosis](https://youtu.be/vLLn5PxF2Lw) on YouTube which walks
 through the Java version of this code.
-There are Java examples as well eg [FraudDetectionJob](src/main/java/spendreport/FraudDetectionJob.java) and [WindowWordCount](src/main/java/com/custom/WindowWordCount.java)
+
+This Repo contains also some Java examples, eg [FraudDetectionJob](src/main/java/spendreport/FraudDetectionJob.java) and [WindowWordCount](src/main/java/com/custom/WindowWordCount.java)
 
 # How to Use This Repository
 
