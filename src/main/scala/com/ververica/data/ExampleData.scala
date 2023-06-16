@@ -43,6 +43,12 @@ object ExampleData:
       5L,
       32L,
       22L
+    ),
+    new Transaction(
+      Instant.parse("2023-03-24T17:01:48.790Z"),
+      7L,
+      32L,
+      22L
     )
   )
 
