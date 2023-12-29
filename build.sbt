@@ -2,9 +2,9 @@ name := "flink-scala-3"
 
 version := "0.1"
 
-scalaVersion := "3.3.0"
+scalaVersion := "3.3.1"
 
-val flinkVersion = "1.17.1"
+val flinkVersion = "1.17.2"
 
 resolvers += Resolver.mavenLocal
 resolvers += "apache.snapshots" at "https://repository.apache.org/content/repositories/snapshots"
@@ -30,7 +30,7 @@ libraryDependencies += "com.github.losizm" %% "little-json" % "9.0.0"
 // For FraudDetectionJob Example
 // https://nightlies.apache.org/flink/flink-docs-release-1.16/docs/try-flink/datastream/
 libraryDependencies += "org.apache.flink" % "flink-walkthrough-common" % flinkVersion
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.4.7"
+libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.4.12"
 
 
 scalacOptions += "-deprecation"
