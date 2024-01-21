@@ -4,7 +4,7 @@ version := "0.1"
 
 scalaVersion := "3.3.1"
 
-val flinkVersion = "1.17.2"
+val flinkVersion = "1.18.1"
 
 resolvers += Resolver.mavenLocal
 resolvers += "apache.snapshots" at "https://repository.apache.org/content/repositories/snapshots"
