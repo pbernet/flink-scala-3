@@ -24,8 +24,8 @@ import java.time.Duration
  * How to run:
  *  - Run this example
  *  - Periodically generate new transactions with: [[FillKafkaWithTransactions]]
- *  - With the retentionTime set to 1 minute, re-generated transactions during this time are deduped,
- *    hence do not show in the log
+ *  - With the retentionTime set to 1 minute, re-generated transactions during this time
+ *  are deduped, hence do not show in the log
  *
  * Similar to: [[FraudDetectionJob]]
  *

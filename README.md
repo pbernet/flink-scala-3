@@ -24,7 +24,7 @@ Other interesting Flink examples: [Immerok examples Repo](https://github.com/pbe
 
 1. Import this repository into your IDE (preferably IntelliJ IDEA). The project uses the latest Flink version and runs with Java 11.
 
-2. In IDEA `Project structure | Global libraries`  add the corresponding `scala-sdk`
+2. In IDEA `Project structure | Global libraries`  add the corresponding `scala-sdk`, eg 3.3.x
 
 3. All examples are runnable from the IDE or SBT. Execute the `main()` method of every example class.
 
@@ -37,4 +37,4 @@ docker-compose up -d
 
 5. Run [FillKafkaWithCustomers](src/main/scala/com/ververica/FillKafkaWithCustomers.scala) and [FillKafkaWithTransactions](src/main/scala/com/ververica/FillKafkaWithTransactions.scala) to create and fill the Kafka topics with data.
 
-6. Monitor the Kafka topics with local [akhq](http://localhost:8081)
+6. Monitor the Kafka topics with local [akhq](http://localhost:8081) console

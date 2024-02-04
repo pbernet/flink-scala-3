@@ -22,10 +22,10 @@ libraryDependencies += "org.apache.flink" % "flink-connector-kafka" % flinkVersi
 libraryDependencies += "org.apache.flink" % "flink-runtime-web" % flinkVersion
 
 libraryDependencies += "org.apache.flink" % "flink-json" % flinkVersion
-// This one works with Scala 3
-// TODO Migrate to successor 'grapple'
-// https://github.com/losizm/grapple
-libraryDependencies += "com.github.losizm" %% "little-json" % "9.0.0"
+
+libraryDependencies += "io.circe" %% "circe-core" % "0.14.6"
+libraryDependencies += "io.circe" %% "circe-generic" % "0.14.6"
+libraryDependencies += "io.circe" %% "circe-parser" % "0.14.6"
 
 // For FraudDetectionJob Example
 // https://nightlies.apache.org/flink/flink-docs-release-1.16/docs/try-flink/datastream/

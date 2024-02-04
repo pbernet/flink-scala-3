@@ -5,8 +5,8 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
 
 import java.time.{LocalDate, Period}
 
-/** Use arbitrary libraries to perform streaming ETL i.e. convert records into
-  * JSON.
+/** Use arbitrary libraries to perform streaming ETL
+  * i.e. convert records into JSON.
   */
 @main def example3() =
   val env = StreamExecutionEnvironment.getExecutionEnvironment
@@ -26,6 +26,6 @@ import java.time.{LocalDate, Period}
          |""".stripMargin
     )
     .executeAndCollect()
-    .forEachRemaining(println);
+    .forEachRemaining(println)
 
   Thread.sleep(5000)
