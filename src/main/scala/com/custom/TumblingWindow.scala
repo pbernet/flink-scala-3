@@ -12,13 +12,15 @@ import org.apache.flink.streaming.api.windowing.windows.TimeWindow
 import org.apache.flink.util.Collector
 import org.slf4j.{Logger, LoggerFactory}
 
+import java.time.format.DateTimeFormatter
 import java.time.{Duration, Instant, OffsetDateTime, ZoneId}
 import java.util
 import scala.jdk.CollectionConverters.*
 import scala.sys.process.{Process, *}
 
 /**
- * Tumbling Session Window example based on code taken from "Rock the JVM Flink course".
+ * Tumbling Session Window example based on code taken from the
+ * "Rock the JVM Flink course".
  * No Scala API is used here, since it is deprecated
  *
  * Doc:
@@ -59,15 +61,15 @@ import scala.sys.process.{Process, *}
     )
 
   val groupedEventsByWindow: AllWindowedStream[ShoppingCartEvent, TimeWindow] = shoppingCartEvents
-    .map(each =>
-      logger.info(s"Event: $each")
-      each)
+    .map(event =>
+      logger.info(s"Event: $event")
+      event)
     .windowAll(TumblingEventTimeWindows.of(Time.seconds(3)))
 
   val countEventsByWindow: DataStream[String] = groupedEventsByWindow.apply(new CountByWindowAll())
-  countEventsByWindow.map(each =>
-    logger.info(s"$each")
-    each)
+  countEventsByWindow.map(window =>
+    logger.info(s"$window")
+    window)
     .setParallelism(10)
   env.execute("TumblingWindow")
 
@@ -118,4 +120,4 @@ def openWebUI(url: String): Unit = {
 def tsToString(ts: Long) = OffsetDateTime
   .ofInstant(Instant.ofEpochMilli(ts), ZoneId.of("UTC"))
   .toLocalTime
-  .toString
+  .format(DateTimeFormatter.ofPattern("HH:mm:ss"))

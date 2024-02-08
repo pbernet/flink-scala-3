@@ -3,6 +3,7 @@ package com
 import org.apache.flink.streaming.api.functions.source.{RichParallelSourceFunction, SourceFunction}
 import org.apache.flink.streaming.api.watermark.Watermark
 
+import java.time.format.DateTimeFormatter
 import java.time.{Instant, OffsetDateTime, ZoneId}
 import java.util.UUID
 import scala.annotation.tailrec
@@ -22,7 +23,7 @@ package object generators {
     def tsToString(ts: Long) = OffsetDateTime
       .ofInstant(Instant.ofEpochMilli(ts), ZoneId.of("UTC"))
       .toLocalTime
-      .toString
+      .format(DateTimeFormatter.ofPattern("HH:mm:ss"))
   }
 
   case class AddToShoppingCartEvent(
