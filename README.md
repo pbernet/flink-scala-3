@@ -4,7 +4,7 @@ As of 1.15+ Flink does not expose any specific Scala version anymore.
 Users can now choose whatever Scala version they need in their user code, including Scala 3.x.
 Note that the [Scala API](https://nightlies.apache.org/flink/flink-docs-master/docs/dev/datastream/scala_api_extensions) is not used, since it is deprecated.
 [As of 1.16+ there are no feasible alternatives](https://lists.apache.org/thread/7lt5sxrgy4b503z4x2sfq36oy5r7v4vc). Successor candidates are:
-* https://github.com/findify/flink-scala-api
+* https://github.com/flink-extended/flink-scala-api
 * https://github.com/ariskk/flink4s
 
 This repository is a fork of [Flink Scala 3 examples](https://github.com/sjwiesman/flink-scala-3), which is originally based on Timo
